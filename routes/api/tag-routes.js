@@ -48,6 +48,23 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
+    Tag.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(dbTagData => {
+            console.log('dbTagData:', dbTagData);
+            if (!dbTagData[0]) {
+                return res.status(400).json({ message: "No tag found with this id" });
+            };
+
+            res.status(200).json(dbTagData);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
 });
 
 router.delete('/:id', (req, res) => {
