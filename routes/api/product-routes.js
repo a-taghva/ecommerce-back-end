@@ -9,15 +9,12 @@ router.get('/', (req, res) => {
     Product.findAll({
         include: [
             {
-                model: Category,
-                attributes: ['category_name']
+                model: Category
             },
             {
-                model: Tag,
-                attributes: ['tag_name']
+                model: Tag
             },
-        ],
-        attributes: { exclude: ['category_id'] }
+        ]
     })
     .then(dbProductData => res.json(dbProductData))
     .catch(err => {
@@ -33,15 +30,12 @@ router.get('/:id', (req, res) => {
         where: {
             id: req.params.id
         },
-        attributes: { exclude: 'category_id' },
         include: [
             {
-                model: Category,
-                attributes: [ 'category_name' ]
+                model: Category
             },
             {
-                model: Tag,
-                attributes: ['tag_name']
+                model: Tag
             }
         ]
     })
